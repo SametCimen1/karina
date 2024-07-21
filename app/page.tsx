@@ -19,43 +19,37 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
+import { Suspense } from 'react';
+import {Skeleton} from "./Skeleton";
 
-
-
-const synth = window.speechSynthesis;
-
-const sampleText = "The quick brown fox jumps over the lazy dog near the tranquil riverbank at sunset."
-
+const sampleText = "Hello, how can I help you today."
+let synth = window.speechSynthesis;
 
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [textValue, setTextValue] = useState({textValue:""});
-  const [selectedVoice, setSelectedVoice] = useState<number>(0);
+  const [selectedVoice, setSelectedVoice] = useState<number>(4);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const {execute, status} = useAction(testMethod, {
     onSuccess(data:any){
-      console.log("HERE in success")
-      console.log(data)
       if(data){
         setMessage(data.data)
       }
     }
   })
 
-  if (!synth)
-    return <span>Aw... your browser does not support Speech Synthesis</span>;
-
-
   const speak = (textValue:string) => {
 
+    synth = window.speechSynthesis;
 
-    const synth = window.speechSynthesis;
     const utterance = new SpeechSynthesisUtterance(textValue);
     utterance.voice = synth.getVoices()[selectedVoice];
 
     synth.speak(utterance);
   };
+
 
 
   useEffect(() => {
@@ -73,12 +67,26 @@ export default function Home() {
   return (
     <main className="">
       <div className="">
-        <div className=" absolute h-screen z-50 w-24 flex justify-center ">
+        <div className=" absolute h-screen z-50 w-36 flex justify-center ">
           <div className="mt-20 ">
-            <div className="bg-slate-100 p-1.5 rounded-md cursor-pointer hover:scale-105">
+            <div className="bg-slate-100 p-1.5 rounded-md cursor-pointer hover:scale-105 w-min m-auto">
               <Link href = "https://instagram.com" target="_blank">
                 <Instagram color="#292929"/>
               </Link>
+            </div>
+            <div className="z-auto">
+              <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                    <DrawerTrigger className="mt-5">
+                      <span className=" bg-blue-500 rounded-lg p-3 ml-2 text-white">How to use?</span>
+                    </DrawerTrigger>
+                    <DrawerContent>
+                      <DrawerHeader>
+                        <DrawerTitle className="text-center">Welcome to Karina.app</DrawerTitle>
+                        <DrawerDescription className="text-center">A virtual assisant to help you</DrawerDescription>
+                      </DrawerHeader>
+
+                    </DrawerContent>
+              </Drawer>
             </div>
           </div>
         </div>
@@ -88,24 +96,13 @@ export default function Home() {
               <input type="text" id="first_name" className="z-99 w-1/2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required value= {textValue.textValue} onChange={(e) => setTextValue({textValue:e.target.value})}/>
               <button className="bg-blue-500 rounded-lg p-3 ml-2 text-white" onClick={() => onsubmit()}>Send</button>
             </div>
-            <VoiceSelector selected={selectedVoice} setSelected={setSelectedVoice} />
+            {/* <VoiceSelector selected={selectedVoice} setSelected={setSelectedVoice} /> */}
         </div>
       </div>
-      <div className="h-screen z-50 absolute  right-0 text-center">
-        <Drawer>
-          <DrawerTrigger className="">
-            <Button variant={'outline'} size={'icon'} className="mr-2 mt-2">&lt;</Button>
-          </DrawerTrigger>
-          <DrawerContent className="bg-slate-100">
-            <DrawerHeader>
-              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-              <DrawerDescription>This action cannot be undone.</DrawerDescription>
-            </DrawerHeader>
 
-          </DrawerContent>
-        </Drawer>
+      <div className={`${isDrawerOpen ? "hidden" : ""} `}>
+        <Face/>
       </div>
-      <Face/>
 
     </main>
   );

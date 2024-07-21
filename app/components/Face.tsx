@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -17,15 +17,13 @@ function MeshComponent() {
 
 
   useFrame((state) => {
-    mesh.current.rotation.set(0, 1.125 * state.pointer.x, 0.05 * state.pointer.x)
+    mesh.current.rotation.set(0, 1.05 * state.pointer.x, 0)
   })
 
   useEffect(() => {
     mesh.current.position.set(0, -1.55, 4.60);
 
     mixer = new THREE.AnimationMixer(gltf.scene);
-    console.log("MIXER")
-    console.log(mixer)
 
     gltf.animations.forEach(clip => {
       // const action = mixer.clipAction(clip)
@@ -51,7 +49,7 @@ function MeshComponent() {
 
 export function Face() {
   return (
-    <div className='flex justify-center items-center h-screen  -z-1'>
+    <div className='flex justify-center items-center h-screen  '>
       <Canvas className='h-2xl w-2xl'>
         {/* <OrbitControls /> */}
         <ambientLight />

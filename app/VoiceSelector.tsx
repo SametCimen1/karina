@@ -1,3 +1,6 @@
+"use client";
+
+
 import React, { useCallback, useEffect, useState } from 'react';
 
 type VoiceSelectorProps = {
@@ -5,7 +8,9 @@ type VoiceSelectorProps = {
   setSelected: (selectedIndex: number) => void;
 };
 
+
 const synth = window.speechSynthesis;
+
 
 const VoiceSelector = ({ selected = 0, setSelected }: VoiceSelectorProps) => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
@@ -35,5 +40,7 @@ const VoiceSelector = ({ selected = 0, setSelected }: VoiceSelectorProps) => {
     </select>
   );
 };
+
+
 
 export default VoiceSelector;
