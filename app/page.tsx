@@ -22,8 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Suspense } from 'react';
 import {Skeleton} from "./Skeleton";
 
-const sampleText = "Hello, how can I help you today."
-let synth = window.speechSynthesis;
+let synth;
 
 
 export default function Home() {
