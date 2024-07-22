@@ -18,6 +18,15 @@ const VoiceSelector = ({ selected = 0, setSelected }: VoiceSelectorProps) => {
   const populateVoiceList = useCallback(() => {
     const newVoices = synth.getVoices();
     setVoices(newVoices);
+
+    console.log('INside voice Selector')
+    console.log(newVoices)
+
+    for(let i = 0; i<newVoices.length; i++){
+      if(newVoices[i].name === "Samantha"){
+        setSelected(i);
+      }
+    }
   }, []);
 
   useEffect(() => {

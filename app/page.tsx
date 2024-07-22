@@ -58,7 +58,15 @@ export default function Home() {
     synth = window.speechSynthesis;
 
     const utterance = new SpeechSynthesisUtterance(textValue);
-    utterance.voice = synth.getVoices()[4];
+    let selectedVoice = 0;
+    const newVoices = synth.getVoices();
+    for(let i = 0; i<newVoices.length; i++){
+      if(newVoices[i].name === "Samantha"){
+        selectedVoice = i;
+      }
+    }
+
+    utterance.voice = synth.getVoices()[selectedVoice];
 
     synth.speak(utterance);
     if(synth.speaking){
