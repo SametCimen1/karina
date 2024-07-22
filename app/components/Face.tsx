@@ -25,12 +25,12 @@ function MeshComponent() {
 
     mixer = new THREE.AnimationMixer(gltf.scene);
 
-    gltf.animations.forEach(clip => {
-      // const action = mixer.clipAction(clip)
-      // console.log("INSIDE ACTION")
-      // console.log(action)
-      // action.play();
-    });
+    // gltf.animations.forEach(clip => {
+    //   // const action = mixer.clipAction(clip)
+    //   // console.log("INSIDE ACTION")
+    //   // console.log(action)
+    //   // action.play();
+    // });
 
 
   }, [gltf]);
@@ -53,7 +53,7 @@ export function Face() {
       <Canvas className='h-2xl w-2xl'>
         {/* <OrbitControls /> */}
         <ambientLight />
-        <pointLight position={[10,10,10]} />
+        <pointLight color="#fff" intensity={31} position={[0, 0, 11]} />
         <MeshComponent/>
       </Canvas>
     </div>
