@@ -53,7 +53,7 @@ export function Face() {
       <Canvas className='h-2xl w-2xl'>
         {/* <OrbitControls /> */}
         <ambientLight />
-        <pointLight color="#fff" intensity={31} position={[0, 0, 11]} />
+        <pointLight color="#fff" intensity={50} position={[0, 0, 11]} />
         <MeshComponent/>
       </Canvas>
     </div>

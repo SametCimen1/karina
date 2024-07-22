@@ -25,9 +25,18 @@ export const testMethod = action
 
 
     const completion = await openai.chat.completions.create({
-        messages: [{ role: "system", content: textValue }],
+        messages: [
+            { role: 'system', content: 'Your response should be less than or equal to 200 words.' },
+            { role: 'user', content: textValue },
+          ],
         model: "gpt-3.5-turbo",
     });
+
+
+    // const completion = await openai.chat.completions.create({
+    //     messages: [{ role: "system", content: textValue }],
+    //     model: "gpt-3.5-turbo",
+    // });
 
     const message = completion.choices[0].message.content;
 
