@@ -44,7 +44,4 @@ export const testMethod = action
 
     return message
 
-
-
-    return { success: "User Updated! 🎉" }
 })
