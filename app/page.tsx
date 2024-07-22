@@ -44,7 +44,7 @@ export default function Home() {
     synth = window.speechSynthesis;
 
     const utterance = new SpeechSynthesisUtterance(textValue);
-    utterance.voice = synth.getVoices()[selectedVoice];
+    utterance.voice = synth.getVoices()[4];
 
     synth.speak(utterance);
   };
@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </div>
         <div className="bottom-0 absolute z-50  w-screen mb-20 flex flex-col items-center ">
-            {<span className="bg-gray-100  text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300 w-3/4  mb-3 lg:max-w-max">{message}</span> }
+            {message && <span className="bg-gray-100  text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300 w-3/4  mb-3 lg:max-w-max">{message}</span> }
             <div className="flex justify-center align-center w-full ">
               <input type="text" id="first_name" className="z-99 w-1/2  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required value= {textValue.textValue} onChange={(e) => setTextValue({textValue:e.target.value})}/>
               <button className="bg-blue-500 rounded-lg p-3 ml-2 text-white" onClick={() => onsubmit()}>Send</button>
