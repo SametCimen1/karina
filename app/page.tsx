@@ -37,6 +37,9 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
+  const [error, setError] = useState('');
+
+
 
   const {execute, status} = useAction(testMethod, {
     onSuccess(data:any){
@@ -91,7 +94,10 @@ export default function Home() {
 
   function onsubmit(){
     if(textValue.textValue.length<1){
-      alert("please enter a valid input")
+      setError("Please enter a valid input")
+      setTimeout(() => {
+        setError("")
+      },3000)
     }else{
       setTextValue({textValue:""});
       setMessage("");
@@ -127,6 +133,14 @@ export default function Home() {
 
   return (
     <main className="">
+      {/* <div className="max-z-index w-screen h-screen bg-black/85 absolute">
+        <Button></Button>
+      </div> */}
+      {error.length > 0  &&
+        <div className="absolute w-screen text-center mt-5">
+          <span className="bg-red-400  p-2 rounded-full text-white">{error}</span>
+        </div>
+      }
       <div className="">
         <div className="absolute h-screen z-50 w-36 sm: flex justify-center">
           <div className="mt-20 ">
@@ -142,7 +156,7 @@ export default function Home() {
                 </div>
               }
               {isWaiting &&
-                <div>
+                <div className="mb-2 animate-pulse">
                   <p>Waiting for response...</p>
                 </div>
               }
@@ -178,23 +192,28 @@ export default function Home() {
                       </DrawerHeader>
                       <Accordion type="single" collapsible className="w-full px-5">
                         <AccordionItem value="item-1">
-                          <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                          <AccordionTrigger>How does it work?</AccordionTrigger>
                           <AccordionContent>
-                            Yes. It adheres to the WAI-ARIA design pattern.
+                            When you send a question to the backend, it makes a request to ChatGPT API and then returns what the API returned to the front-end
+                            and the front-end tries to use speech API to say the response outloud.
                           </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="item-2">
-                          <AccordionTrigger>Is it styled?</AccordionTrigger>
+                          <AccordionTrigger>What can it do?</AccordionTrigger>
                           <AccordionContent>
-                            Yes. It comes with default styles that matches the other
-                            components&apos; aesthetic.
+                            It can basically do anything that you can do with normal ChatGPT, the only difference is that this app uses ChatGPT-3.5 Turbo.
                           </AccordionContent>
                         </AccordionItem>
                         <AccordionItem value="item-3">
-                          <AccordionTrigger>Is it animated?</AccordionTrigger>
+                          <AccordionTrigger>Next Steps?</AccordionTrigger>
                           <AccordionContent>
-                            Yes. It&apos;s animated by default, but you can disable it if you
-                            prefer.
+                            The next steps for this project is to add talking animations and much more.
+                          </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-4">
+                          <AccordionTrigger>Source Code</AccordionTrigger>
+                          <AccordionContent>
+                            You can see the github repository <Link className="text-blue-500" href = "https://github.com/sametcimen1/karina">here</Link>
                           </AccordionContent>
                         </AccordionItem>
                       </Accordion>
